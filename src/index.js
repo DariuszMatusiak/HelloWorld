@@ -1,4 +1,4 @@
 // index.js
 module.exports = function greet () {
-  return 'Hello Mars!'
+  return 'Hello world! DDC24'
 }
