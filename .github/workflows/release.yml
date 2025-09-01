@@ -1,0 +1,36 @@
+name: Release
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    
+    permissions:
+      packages: write
+      contents: write
+    
+    steps:
+      - uses: actions/checkout@v4
+        # with: 
+          # fetch-depth: 0
+      
+      -  uses: actions/setup-node@v4
+         with:
+            node-version: 21.x
+            registry-url: https://npm.pkg.github.com/
+
+      - name: Install dependencies
+        run: npm install
+  
+      - name: Run tests
+        run: npm test
+          
+      - name: Publish package 
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+      
